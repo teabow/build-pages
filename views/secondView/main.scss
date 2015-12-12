@@ -1,0 +1,207 @@
+$red: rgb(226, 0, 48);
+$white: #fff;
+$grey: rgb(113, 113, 113);
+$greyBorder: #f1f1f1;
+$greyLight: rgb(132, 132, 132);
+
+[class*=col-], [class*=mobile-col-] {
+    margin: 0;
+}
+.grid {
+    position: relative;
+    max-width: 0;
+    min-width: 100%;
+    overflow: initial;
+}
+.no-pad {
+    padding: 0;
+    [class*=col-], [class*=mobile-col-] {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+body {
+    overflow: hidden;
+}
+
+header {
+    background-color: $red;
+    color: $white;
+    padding: 20px 20px 14px 20px;
+    min-height: 90px;
+    h1 {
+        color: $white;
+        font-family: helveticaTotalBold;
+    }
+    button {
+        background-color: $red;
+        color: $white;
+        border: none;
+        padding: 10px 14px 0 14px;
+        margin-right: 8px;
+        font-size: 20px;
+    }
+    button.btnActions:nth-child(2) {
+        margin-right: 8px;
+    }
+    button.selected {
+        background-color: $white;
+        color: $red;
+    }
+    img.refreshImage {
+        max-width: 24px;
+        vertical-align: top;
+        margin-top: 2px;
+    }
+    img.refreshImage.active {
+        opacity: 0.8;
+    }
+    .updateValue {
+        font-family: arial;
+    }
+    .refreshContainer {
+        display: inline-block;
+        vertical-align: top;
+        padding: 0 10px 10px 0;
+    }
+    .col-5-12 {
+        padding-right: 0;
+    }
+}
+
+h3 {
+    text-transform: uppercase;
+}
+
+section.mainContent {
+    background-color: $white;
+    color: $grey;
+    .actionsBlock {
+        padding-left: 40px;
+    }
+    .title {
+        margin: 20px 20px 0 20px;
+    }
+    .trendBlock {
+        background-color: $white;
+        padding:20px;
+    }
+    .trendBlockLeft {
+        -webkit-border-top-right-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+    .trendBlockRight {
+        -webkit-border-top-left-radius: 10px;
+        border-top-left-radius: 10px;
+    }
+    .content {
+        .contentValue {
+            position: relative;
+            font-size: 42px;
+        }
+        .contentValueSmall {
+            font-size: 32px;
+        }
+        .trend {
+            font-size: 28px;
+            position: absolute;
+            bottom: -24px;
+            font-family: helveticaTotalLight;
+            color: $greyLight;
+        }
+        .trendSmall {
+            font-size: 20px;
+            position: absolute;
+            bottom: -16px;
+            font-family: helveticaTotalLight;
+            color: $greyLight;
+        }
+        img.arrowImage {
+            max-height: 30px;
+        }
+        img.arrowImageBig {
+            max-height: 38px;
+        }
+        .variations {
+            border-top: 1px solid $greyBorder;
+            padding-top: 10px;
+            margin-top: 30px;
+        }
+    }
+}
+
+@media screen and (max-width: 610px) {
+    .mobile-col-7-12 {
+        width: 50.33%;
+    }
+    .mobile-col-5-12 {
+        width: 49.66%;
+    }
+}
+
+/** For 7, 8 inches tablet in landscape mode **/
+@media screen and (max-height: 300px), screen and (max-width: 400px) {
+    header {
+        padding: 16px 20px 10px 20px;
+        min-height: 70px;
+        .updateValue {
+            font-size: 14px;
+        }
+    }
+    section.mainContent .trendBlock {
+        padding: 8px 20px 0 20px;
+    }
+    section.mainContent {
+        .content {
+            .contentValue {
+                font-size: 36px;
+            }
+            .contentValueSmall {
+                font-size: 26px;
+            }
+            .trend {
+                font-size: 22px;
+                bottom: -18px;
+            }
+            .trendSmall {
+                font-size: 14px;
+                bottom: -10px;
+            }
+            img.arrowImage {
+                max-height: 24px;
+            }
+            img.arrowImageBig {
+                max-height: 32px;
+            }
+            .variations {
+                font-size: 14px;
+                margin-top: 20px;
+            }
+        }
+    }
+}
+
+/** iPad mini, iPad 2 **/
+@media only screen
+and (min-device-height : 768px)
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (-webkit-min-device-pixel-ratio: 1)  {
+    header {
+        button {
+            padding: 10px 14px 4px 14px;
+        }
+    }
+}
+
+@media only screen
+and (min-device-height : 768px)
+and (min-device-width : 1080px) {
+    header {
+        button {
+            padding: 10px 14px 4px 14px;
+            font-size: 22px;
+        }
+    }
+}

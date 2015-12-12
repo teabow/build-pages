@@ -1,0 +1,57 @@
+$red: rgb(226, 0, 48);
+$white: #fff;
+$grey: rgb(113, 113, 113);
+$greyLight: rgb(189, 189, 189);
+$greyBackground: rgb(246, 246, 246);
+$greyBorder: #c1c1c1;
+
+/** Utils classes **/
+.alignLeft {
+    text-align: left;
+}
+.alignRight {
+    text-align: right;
+}
+
+.center {
+    text-align: center;
+}
+
+.grid-pad {
+    margin: 0;
+    padding: 0;
+}
+[class*=mobile-col-] {
+    margin: 0;
+}
+
+.red {
+    color:$red;
+}
+.redArrow {
+    max-width: 16px;
+}
+.fLeft {
+    float: left;
+}
+.fRight {
+    float: right;
+}
+.uppercase {
+    text-transform: uppercase;
+}
+
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    outline: none;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+section.mainContent {
+    color: $grey;
+}
