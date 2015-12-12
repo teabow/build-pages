@@ -57,8 +57,8 @@ gulp.task('compilePage', ['browserify', 'copyMock', 'css', 'copyImg', 'copyLib']
         fs.mkdirSync(appDir + serveDir);
     }
 
-    fs.copySync(commonDir + 'fonts', appDir + 'tmp/fonts');
-    fs.copySync(commonDir + 'img', appDir + 'tmp/img');
+    fs.copySync(commonDir + 'fonts', appDir + serveDir + '/fonts');
+    fs.copySync(commonDir + 'img', appDir + serveDir + '/img');
 
     page = pageTemplate.replace('<!--include:css-->',
         '<style>' + fs.readFileSync(commonStyles + 'normalize.min.css', {encoding: 'utf8'}) + '</style>' +
@@ -71,9 +71,9 @@ gulp.task('compilePage', ['browserify', 'copyMock', 'css', 'copyImg', 'copyLib']
 
 gulp.task('watch', function () {
     gulp.watch([
-        appDir + 'tmp/**/*.html',
-        appDir + 'tmp/**/*.js',
-        appDir + 'tmp/**/*.css'
+        appDir + serveDir + '/**/*.html',
+        appDir + serveDir + '/**/*.js',
+        appDir + serveDir + '/**/*.css'
     ], function (event) {
         return gulp.src(event.path)
             .pipe(plugins.connect.reload());
