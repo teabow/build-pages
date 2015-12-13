@@ -13,6 +13,6 @@ Then, run your page in the browser using :
 `gulp serve --view myNewView`
 
 To build all your pages, run :
-`gulp build`
+`gulp build-pages`
 
 Your pages will be generated in the `build` folder.
