@@ -7,49 +7,10 @@
   min-width: 100%;
   overflow: initial; }
 
-.no-pad {
-  padding: 0; }
-  .no-pad [class*=col-], .no-pad [class*=mobile-col-] {
-    margin: 0;
-    padding: 0; }
-
-body {
-  overflow: hidden; }
-
 header {
-  background-color: #e20030;
-  color: #fff;
-  padding: 20px 20px 14px 20px;
-  min-height: 90px; }
+  color: #fff; }
   header h1 {
-    color: #fff;
-    font-family: helveticaTotalBold; }
-  header button {
-    background-color: #e20030;
-    color: #fff;
-    border: none;
-    padding: 10px 14px 0 14px;
-    margin-right: 8px;
-    font-size: 20px; }
-  header button.btnActions:nth-child(2) {
-    margin-right: 8px; }
-  header button.selected {
-    background-color: #fff;
-    color: #e20030; }
-  header img.refreshImage {
-    max-width: 24px;
-    vertical-align: top;
-    margin-top: 2px; }
-  header img.refreshImage.active {
-    opacity: 0.8; }
-  header .updateValue {
-    font-family: arial; }
-  header .refreshContainer {
-    display: inline-block;
-    vertical-align: top;
-    padding: 0 10px 10px 0; }
-  header .col-5-12 {
-    padding-right: 0; }
+    color: #fff; }
 
 h3 {
   text-transform: uppercase; }
@@ -57,84 +18,3 @@ h3 {
 section.mainContent {
   background-color: #fff;
   color: #717171; }
-  section.mainContent .actionsBlock {
-    padding-left: 40px; }
-  section.mainContent .title {
-    margin: 20px 20px 0 20px; }
-  section.mainContent .trendBlock {
-    background-color: #fff;
-    padding: 20px; }
-  section.mainContent .trendBlockLeft {
-    -webkit-border-top-right-radius: 10px;
-    border-top-right-radius: 10px; }
-  section.mainContent .trendBlockRight {
-    -webkit-border-top-left-radius: 10px;
-    border-top-left-radius: 10px; }
-  section.mainContent .content .contentValue {
-    position: relative;
-    font-size: 42px; }
-  section.mainContent .content .contentValueSmall {
-    font-size: 32px; }
-  section.mainContent .content .trend {
-    font-size: 28px;
-    position: absolute;
-    bottom: -24px;
-    font-family: helveticaTotalLight;
-    color: #848484; }
-  section.mainContent .content .trendSmall {
-    font-size: 20px;
-    position: absolute;
-    bottom: -16px;
-    font-family: helveticaTotalLight;
-    color: #848484; }
-  section.mainContent .content img.arrowImage {
-    max-height: 30px; }
-  section.mainContent .content img.arrowImageBig {
-    max-height: 38px; }
-  section.mainContent .content .variations {
-    border-top: 1px solid #f1f1f1;
-    padding-top: 10px;
-    margin-top: 30px; }
-
-@media screen and (max-width: 610px) {
-  .mobile-col-7-12 {
-    width: 50.33%; }
-  .mobile-col-5-12 {
-    width: 49.66%; } }
-
-/** For 7, 8 inches tablet in landscape mode **/
-@media screen and (max-height: 300px), screen and (max-width: 400px) {
-  header {
-    padding: 16px 20px 10px 20px;
-    min-height: 70px; }
-    header .updateValue {
-      font-size: 14px; }
-  section.mainContent .trendBlock {
-    padding: 8px 20px 0 20px; }
-  section.mainContent .content .contentValue {
-    font-size: 36px; }
-  section.mainContent .content .contentValueSmall {
-    font-size: 26px; }
-  section.mainContent .content .trend {
-    font-size: 22px;
-    bottom: -18px; }
-  section.mainContent .content .trendSmall {
-    font-size: 14px;
-    bottom: -10px; }
-  section.mainContent .content img.arrowImage {
-    max-height: 24px; }
-  section.mainContent .content img.arrowImageBig {
-    max-height: 32px; }
-  section.mainContent .content .variations {
-    font-size: 14px;
-    margin-top: 20px; } }
-
-/** iPad mini, iPad 2 **/
-@media only screen and (min-device-height: 768px) and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
-  header button {
-    padding: 10px 14px 4px 14px; } }
-
-@media only screen and (min-device-height: 768px) and (min-device-width: 1080px) {
-  header button {
-    padding: 10px 14px 4px 14px;
-    font-size: 22px; } }

@@ -10,6 +10,11 @@ var appDir = 'views/' + argv.view + '/';
 var serveDir = '.tmp';
 var commonDir = 'views/_common/';
 var commonStyles = commonDir + 'styles/';
+var conf = {};
+
+gulp.task('load-conf', function () {
+   conf = fs.readJSONFileSync(appDir + 'conf.json');
+});
 
 gulp.task('copyMock', function () {
     gulp.src(appDir + 'mock.js')
@@ -33,7 +38,7 @@ gulp.task('css', function () {
         .pipe(gulp.dest(appDir + serveDir));
 });
 
-gulp.task('browserify', function () {
+gulp.task('browserify', ['load-conf'], function () {
     return browserify({debug: false})
         .add('./' + appDir + 'main.js')
         .transform(require('partialify'))
@@ -60,11 +65,15 @@ gulp.task('compilePage', ['browserify', 'copyMock', 'css', 'copyImg', 'copyLib']
     fs.copySync(commonDir + 'fonts', appDir + serveDir + '/fonts');
     fs.copySync(commonDir + 'img', appDir + serveDir + '/img');
 
-    page = pageTemplate.replace('<!--include:css-->',
-        '<style>' + fs.readFileSync(commonStyles + 'normalize.min.css', {encoding: 'utf8'}) + '</style>' +
-        '<style>' + fs.readFileSync(commonStyles + 'simplegrid.css', {encoding: 'utf8'}) + '</style>' +
-        '<style>' + cssResult.css + '</style>');
-    page = page.replace('<!--include:template-->', fs.readFileSync(appDir + 'main.html', {encoding: 'utf8'}));
+    page = pageTemplate.replace('<!--include:title-->', conf.title)
+        .replace('<!--include:description-->', conf.description)
+        .replace('<!--include:css-->',
+            '<style>' + fs.readFileSync(commonStyles + 'normalize.min.css', {encoding: 'utf8'}) + '</style>' +
+            '<style>' + fs.readFileSync(commonStyles + 'simplegrid.css', {encoding: 'utf8'}) + '</style>' +
+            '<style>' + cssResult.css + '</style>')
+        .replace('<!--include:template-->', fs.readFileSync(appDir + 'main.html', {encoding: 'utf8'}))
+        .replace('<!--include:main-css-->', conf.style.main.replace('.scss', '.css'))
+        .replace('<!--include:main-js-->', conf.script.main);
 
     fs.writeFileSync(appDir + serveDir + '/index.html', page, {encoding: 'utf8'});
 });

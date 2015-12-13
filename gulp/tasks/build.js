@@ -1,15 +1,11 @@
 var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')({lazy: false});
 var notifier = require('node-notifier');
 var sass = require('node-sass');
 var browserify = require('browserify');
 var uglifyJS = require("uglify-js");
-var path = require('path');
-var shell = require('gulp-shell');
 var argv = require('yargs').argv;
 var commonDir = 'views/_common/';
 var commonStyles = commonDir + 'styles/';
-var root = 'views/';
 var build = 'build/';
 
 var ENV = (argv.env) ? argv.env : 'dev';
@@ -33,7 +29,7 @@ var deleteFolderRecursive = function (path) {
     }
 };
 
-gulp.task('build-pages', function () {
+gulp.task('build', function () {
 
     var buildFolder = '';
     var pageTemplate = fs.readFileSync(commonDir + 'page-template.html', {encoding: 'utf8'});
@@ -65,12 +61,13 @@ gulp.task('build-pages', function () {
 
         if (/^[a-zA-Z].+[View$]/i.test(views[i]) && !/^_common/i.test(views[i]) && !/^build/i.test(views[i]) && !/^\./i.test(views[i])) {
 
-            var page = '', cssPlatform;
+            var page = '', conf;
 
             console.log('building ' + views[i] + '...');
 
             buildFolder = 'views/' + views[i] + '/' + build;
             currentView = 'views/' + views[i];
+            conf = fs.readJSONFileSync(currentView + '/' + 'conf.json');
 
             if (!fs.existsSync(buildFolder)) {
                 fs.mkdirSync(buildFolder);
@@ -81,36 +78,27 @@ gulp.task('build-pages', function () {
                 outputStyle: 'compressed'
             });
 
-            if (argv.os === 'ios') {
-                cssPlatform = sass.renderSync({
-                    file: commonStyles + 'ios.scss',
-                    outputStyle: 'compressed'
-                });
-            }
-
             var cssResult = sass.renderSync({
-                file: currentView + '/main.scss',
+                file: currentView + '/' + conf.style.main,
                 outputStyle: 'compressed'
             });
 
             browserify({debug: false})
                 .transform(require('partialify'))
-            .add('./' + currentView + '/main.js')
+            .add('./' + currentView + '/' + conf.script.main)
             .bundle(function (err, src) {
                 if (err) throw err;
-                page = pageTemplate.replace('<!--include:css-->',
+                page = pageTemplate.replace('<!--include:title-->', conf.title);
+                page = page.replace('<!--include:description-->', conf.description);
+                page = page.replace('<!--include:css-->',
                     '<style>' + fs.readFileSync(commonStyles + 'normalize.min.css', {encoding: 'utf8'}) + '</style>' +
                     '<style>' + fs.readFileSync(commonStyles + 'simplegrid.css', {encoding: 'utf8'}) + '</style>' +
-                    '<style>' + commonCssResult.css + '</style>' +
-                    ((cssPlatform) ? '<style>' + cssPlatform.css + '</style>' : ''));
+                    '<style>' + commonCssResult.css + '</style>');
                 page = page.replace('<!--include:template-->', fs.readFileSync(currentView + '/main.html', {encoding: 'utf8'}));
-                page = page.replace('<link rel="stylesheet" href="main.css">', '<style>' + cssResult.css + '</style>');
-                page = page.replace('<script src="main.js"></script>', '');
-                page = page.replace('<script src="mock.js"></script>', '');
+                page = page.replace('<link rel="stylesheet" href="<!--include:main-css-->">', '<style>' + cssResult.css + '</style>');
+                page = page.replace('<script src="<!--include:main-js-->"></script>', '');
                 page = page.replace('</body>', '');
                 page = page.replace('</html>', '');
-                page +=  '<script src="common/cordova.js"></script>';
-                page +=  '<script src="common/cordova-plugin-datepicker.js"></script>';
                 if (ENV === 'dev') {
                     page += '<script>' + src.toString('utf8') + '</script>';
                 }

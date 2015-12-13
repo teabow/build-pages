@@ -1,0 +1,10 @@
+{
+  "title": "Second View",
+  "description": "Second page description",
+  "script": {
+    "main": "main.js"
+  },
+  "style": {
+    "main": "main.scss"
+  }
+}

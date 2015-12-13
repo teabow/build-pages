@@ -1,4 +1,4 @@
-$red: rgb(226, 0, 48);
+$headerColor: #00BFFF;
 $white: #fff;
 $grey: rgb(113, 113, 113);
 $greyLight: rgb(189, 189, 189);
@@ -25,8 +25,10 @@ $greyBorder: #c1c1c1;
     margin: 0;
 }
 
-.red {
-    color:$red;
+header {
+    background-color:$headerColor;
+    padding: 10px;
+    min-height: 80px;
 }
 .redArrow {
     max-width: 16px;
@@ -44,6 +46,10 @@ $greyBorder: #c1c1c1;
 * {
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     outline: none;
+}
+
+body {
+    font-family: Arial, 'sans-serif';
 }
 
 ul {
