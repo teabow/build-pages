@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var notifier = require('node-notifier');
 var sass = require('node-sass');
 var browserify = require('browserify');
+var path = require('path');
 var uglifyJS = require("uglify-js");
 var argv = require('yargs').argv;
 var commonDir = 'views/_common/';
@@ -53,7 +54,7 @@ gulp.task('build', function () {
             notifier.notify({
                 title: 'Build pages',
                 message: 'Build pages complete',
-                //icon: path.join('./views/_common/img', 'ic_app.png'),
+                icon: path.join('./views/_common/img', 'ic_build.png'),
                 sound: true
             });
             return;
