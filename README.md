@@ -5,7 +5,7 @@
 To create a new page, create a new folder `myNewView` within the `views` folder.
 
 Then, configure your page with the `conf.json` file :
-````
+```json
 {
   "title": "Main View",
   "description": "Main page description",
