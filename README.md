@@ -4,10 +4,24 @@
 
 To create a new page, create a new folder `myNewView` within the `views` folder.
 
-It's important to implement the following files :
-- `main.js` (main javascript file)
-- `main.scss` (main css styles file)
-- `main.html` (main html template)
+Then, configure your page with the `conf.json` file :
+````
+{
+  "title": "Main View",
+  "description": "Main page description",
+  "script": {
+    "main": "main.js"
+  },
+  "style": {
+    "main": "main.scss"
+  }
+}
+```
+
+- `title` : the page title
+- `description` : the page description
+- `script` -> `main` : the main javascript file
+- `style` -> `main` : the main style file
 
 Then, run your page in the browser using :
 `gulp serve --view myNewView`
