@@ -9,10 +9,10 @@ It's important to implement the following files :
 - `main.scss` (main css styles file)
 - `main.html` (main html template)
 
-Then run your page in the browser using :
+Then, run your page in the browser using :
 `gulp serve --view myNewView`
 
-Then to build all your pages, run :
-`gulp build`
+To build all your pages, run :
+`gulp build-pages`
 
 Your pages will be generated in the `build` folder.
