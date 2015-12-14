@@ -25,7 +25,7 @@ Then, configure your page with the `conf.json` file :
     "minifyJs": true
   }
 }
-``
+```
 
 - `title` : the page title
 - `description` : the page description
