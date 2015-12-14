@@ -1,3 +1,5 @@
+@import "../_common/styles/common";
+
 $white: #fff;
 $grey: rgb(113, 113, 113);
 
@@ -9,13 +11,6 @@ $grey: rgb(113, 113, 113);
     max-width: 0;
     min-width: 100%;
     overflow: initial;
-}
-
-header {
-    color: $white;
-    h1 {
-        color: $white;
-    }
 }
 
 h3 {

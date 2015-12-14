@@ -1,3 +1,60 @@
+/** Utils classes **/
+.alignLeft {
+  text-align: left; }
+
+.alignRight {
+  text-align: right; }
+
+.center {
+  text-align: center; }
+
+.grid-pad {
+  margin: 0;
+  padding: 0; }
+
+[class*=mobile-col-] {
+  margin: 0; }
+
+header {
+  background-color: #00BFFF;
+  padding: 20px;
+  color: #fff; }
+  header h1 {
+    color: #fff;
+    margin: 0; }
+
+.redArrow {
+  max-width: 16px; }
+
+.fLeft {
+  float: left; }
+
+.fRight {
+  float: right; }
+
+.uppercase {
+  text-transform: uppercase; }
+
+* {
+  -webkit-tap-highlight-color: transparent;
+  outline: none; }
+
+body {
+  font-family: Arial, 'sans-serif'; }
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0; }
+
+.title {
+  text-align: center; }
+  .title h1 {
+    font-size: 1.5em; }
+
+section.mainContent {
+  color: #717171; }
+
 [class*=col-], [class*=mobile-col-] {
   margin: 0; }
 
@@ -6,11 +63,6 @@
   max-width: 0;
   min-width: 100%;
   overflow: initial; }
-
-header {
-  color: #fff; }
-  header h1 {
-    color: #fff; }
 
 h3 {
   text-transform: uppercase; }

@@ -6,6 +6,8 @@ var sassSync = require('node-sass');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var fs = require('fs-extra');
+var util = require('./util');
+
 var appDir = 'views/' + argv.view + '/';
 var serveDir = '.tmp';
 var commonDir = 'views/_common/';
@@ -65,14 +67,16 @@ gulp.task('compilePage', ['browserify', 'copyMock', 'css', 'copyImg', 'copyLib']
     fs.copySync(commonDir + 'fonts', appDir + serveDir + '/fonts');
     fs.copySync(commonDir + 'img', appDir + serveDir + '/img');
 
-    page = pageTemplate.replace('<!--include:title-->', conf.title)
+    var staticsCss = util.buildStatics(conf.style.static, util.TYPE.STYLE);
+    var staticsJs = util.buildStatics(conf.script.static, util.TYPE.SCRIPT);
+
+    page = pageTemplate
+        .replace('<!--include:title-->', conf.title)
         .replace('<!--include:description-->', conf.description)
-        .replace('<!--include:css-->',
-            '<style>' + fs.readFileSync(commonStyles + 'normalize.min.css', {encoding: 'utf8'}) + '</style>' +
-            '<style>' + fs.readFileSync(commonStyles + 'simplegrid.css', {encoding: 'utf8'}) + '</style>' +
-            '<style>' + cssResult.css + '</style>')
+        .replace('<!--include:static-css-->', staticsCss)
         .replace('<!--include:template-->', fs.readFileSync(appDir + 'main.html', {encoding: 'utf8'}))
         .replace('<!--include:main-css-->', conf.style.main.replace('.scss', '.css'))
+        .replace('<!--include:static-js-->', staticsJs)
         .replace('<!--include:main-js-->', conf.script.main);
 
     fs.writeFileSync(appDir + serveDir + '/index.html', page, {encoding: 'utf8'});

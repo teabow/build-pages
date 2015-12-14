@@ -12,7 +12,7 @@ var viewManager = {
 
     isReady: function (ready) {
         // To implement in each view
-        ready && ready();
+        throw new Error('isReady must be implemented');
     },
 
     /**

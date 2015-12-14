@@ -5,6 +5,9 @@
     "main": "main.js"
   },
   "style": {
-    "main": "main.scss"
+    "main": "main.scss",
+    "static": [
+      "views/_common/styles/normalize.min.css"
+    ]
   }
 }

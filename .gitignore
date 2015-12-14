@@ -1,8 +1,9 @@
 node_modules/
 bower_components/
-*.log
-
+tmp/
+.tmp/
 build/
 dist/
 .idea/
 .DS_Store
+*.log

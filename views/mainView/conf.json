@@ -2,9 +2,20 @@
   "title": "Main View",
   "description": "Main page description",
   "script": {
-    "main": "main.js"
+    "main": "main.js",
+    "static": [
+      "views/_common/common.js"
+    ]
   },
   "style": {
-    "main": "main.scss"
+    "main": "main.scss",
+    "static": [
+      "views/_common/styles/normalize.min.css",
+      "views/_common/styles/simplegrid.css"
+    ]
+  },
+  "build": {
+    "minifyHtml": true,
+    "minifyJs": true
   }
 }

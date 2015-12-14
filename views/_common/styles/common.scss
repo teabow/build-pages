@@ -27,8 +27,12 @@ $greyBorder: #c1c1c1;
 
 header {
     background-color:$headerColor;
-    padding: 10px;
-    min-height: 80px;
+    padding: 20px;
+    color: $white;
+    h1 {
+        color: $white;
+        margin: 0;
+    }
 }
 .redArrow {
     max-width: 16px;
@@ -56,6 +60,13 @@ ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
+}
+
+.title {
+    text-align: center;
+    h1 {
+        font-size: 1.5em;
+    }
 }
 
 section.mainContent {
