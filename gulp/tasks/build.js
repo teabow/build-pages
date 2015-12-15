@@ -14,7 +14,7 @@ var build = 'build/';
 var OS = argv.os;
 var PATH = build;
 
-var currentView = null;
+var currentView = null, isFirst = true;
 
 var fs = require('fs-extra');
 var deleteFolderRecursive = function (path) {
@@ -41,11 +41,6 @@ gulp.task('build', function () {
 
     PATH = (defaultConf && defaultConf.build && defaultConf.build.destination) || PATH;
 
-    deleteFolderRecursive(PATH);
-    fs.mkdirSync(PATH);
-    fs.copySync(commonDir + 'fonts', PATH + '/fonts');
-    fs.copySync(commonDir + 'img', PATH + '/img');
-
     var views = fs.readdirSync('views');
 
     var compilePage = function (i) {
@@ -70,6 +65,8 @@ gulp.task('build', function () {
             currentView = 'views/' + views[i];
             conf = fs.readJSONFileSync(currentView + '/' + 'conf.json');
 
+            PATH = (conf.build && conf.build.destination) || PATH;
+
             if (!fs.existsSync(buildFolder)) {
                 fs.mkdirSync(buildFolder);
             }
@@ -85,6 +82,7 @@ gulp.task('build', function () {
             if (OS && conf.platform) {
                 for (var k = 0; k < conf.platform.length; k++) {
                     if (OS === conf.platform[k].os) {
+                        PATH = conf.platform[k].destination || PATH;
                         var file, type;
                         for (var j = 0; j < conf.platform[k].files.length; j++) {
                             file = conf.platform[k].files[j];
@@ -96,6 +94,14 @@ gulp.task('build', function () {
                         }
                     }
                 }
+            }
+
+            if (isFirst) {
+                isFirst = false;
+                deleteFolderRecursive(PATH);
+                fs.mkdirSync(PATH);
+                fs.copySync(commonDir + 'fonts', PATH + '/fonts');
+                fs.copySync(commonDir + 'img', PATH + '/img');
             }
 
             browserify({debug: false})
