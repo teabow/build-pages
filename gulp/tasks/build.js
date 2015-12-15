@@ -65,8 +65,6 @@ gulp.task('build', function () {
             currentView = 'views/' + views[i];
             conf = fs.readJSONFileSync(currentView + '/' + 'conf.json');
 
-            PATH = (conf.build && conf.build.destination) || PATH;
-
             if (!fs.existsSync(buildFolder)) {
                 fs.mkdirSync(buildFolder);
             }
@@ -79,13 +77,13 @@ gulp.task('build', function () {
             var staticsCss = util.buildStatics(conf.style.static, util.TYPE.STYLE);
             var staticsJs = util.buildStatics(conf.script.static, util.TYPE.SCRIPT);
             var platformIncludesCss = '', platformIncludesJs = '';
-            if (OS && conf.platform) {
-                for (var k = 0; k < conf.platform.length; k++) {
-                    if (OS === conf.platform[k].os) {
-                        PATH = conf.platform[k].destination || PATH;
+            if (OS && defaultConf.platform) {
+                for (var k = 0; k < defaultConf.platform.length; k++) {
+                    if (OS === defaultConf.platform[k].os) {
+                        PATH = defaultConf.platform[k].destination || PATH;
                         var file, type;
-                        for (var j = 0; j < conf.platform[k].files.length; j++) {
-                            file = conf.platform[k].files[j];
+                        for (var j = 0; j < defaultConf.platform[k].files.length; j++) {
+                            file = defaultConf.platform[k].files[j];
                             if (file.indexOf('.css') > 0) {
                                 platformIncludesCss += util.buildStatic(file, util.TYPE.STYLE);
                             } else if (file.indexOf('.js') > 0) {
@@ -124,7 +122,7 @@ gulp.task('build', function () {
                         .replace('</body>', '')
                         .replace('</html>', '');
 
-                    if (conf.build && conf.build.minifyJs) {
+                    if (defaultConf.build && defaultConf.build.minifyJs) {
                         page += '<script>' + uglifyJS.minify(src.toString('utf8'), {fromString: true}).code + '</script>';
                     }
                     else {
@@ -133,7 +131,7 @@ gulp.task('build', function () {
                     page += '\n</body>\n</html>';
 
                     fs.writeFileSync(PATH + '/' + currentView.replace('views/', '') + '.html',
-                        ((conf.build && conf.build.minifyHtml) ? minifyHtml(page, {
+                        ((defaultConf.build && defaultConf.build.minifyHtml) ? minifyHtml(page, {
                             collapseWhitespace: true,
                             removeComments: true,
                             removeAttributeQuotes: true

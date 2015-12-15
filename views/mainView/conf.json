@@ -13,17 +13,5 @@
       "views/_common/styles/normalize.min.css",
       "views/_common/styles/simplegrid.css"
     ]
-  },
-  "platform": [
-    {
-      "os": "ios",
-      "files": ["./views/_ios/ios.js", "./views/_ios/ios.css"],
-      "destination": "ios"
-    }
-  ],
-  "build": {
-    "minifyHtml": true,
-    "minifyJs": true,
-    "destination": "__BUILD"
   }
 }
