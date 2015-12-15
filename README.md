@@ -1,6 +1,10 @@
 # Web pages builder based on gulp and browserify
 
+### Create
+
 To create a new page, create a new folder `myNewView` within the `views` folder.
+
+### Configure
 
 Then, configure your page with the `conf.json` file :
 
@@ -60,8 +64,12 @@ You can set a default configuration for all pages with the `default.conf.json` f
     - `files` : files to include for this os
     - `destination` : the destination folder for generated pages
 
+### Serve
+
 Then, run your page in the browser using :
 `gulp serve --view myNewView`
+
+### Build
 
 To build all your pages, run :
 `gulp build` or `gulp build --os ios` for a specific platform.
