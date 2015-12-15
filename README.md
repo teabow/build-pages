@@ -56,7 +56,7 @@ You can set a default configuration for all pages with the `default.conf.json` f
     - `minifyHtml` : set to true to enable html minification
     - `minifyJs` : set to true to enable javascript minification
 - `platform` : platform configuration array (not required)
-    - `os` : os targeted
+    - `os` : os name
     - `files` : files to include for this os
     - `destination` : the destination folder for generated pages
 
