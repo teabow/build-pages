@@ -38,8 +38,8 @@ Then, configure your page with the `conf.json` file :
     - `static` : the static css files to include
 
 You can set a default configuration for all pages with the `default.conf.json` file :
-```json
 
+```json
 {
   "build": {
     "minifyHtml": true,
@@ -75,3 +75,5 @@ To build all your pages, run :
 `gulp build` or `gulp build --os ios` for a specific platform.
 
 Your pages will be generated in the `build.destination` folder (or `platform.destination` folder for specific platform).
+
+**You can find examples in the `views` folder project.**
