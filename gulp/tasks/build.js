@@ -11,7 +11,7 @@ var util = require('./util');
 var commonDir = 'views/_common/';
 var build = 'build/';
 
-var ENV = (argv.env) ? argv.env : 'dev';
+var OS = argv.os;
 var PATH = build;
 
 var currentView = null;
@@ -35,18 +35,16 @@ var deleteFolderRecursive = function (path) {
 gulp.task('build', function () {
 
     var buildFolder = '';
+    var defaultConf = fs.readJSONFileSync('./views/default.conf.json');
     var pageTemplate = fs.readFileSync(commonDir + 'page-template.html', {encoding: 'utf8'});
     var page = '';
+
+    PATH = (defaultConf && defaultConf.build && defaultConf.build.destination) || PATH;
 
     deleteFolderRecursive(PATH);
     fs.mkdirSync(PATH);
     fs.copySync(commonDir + 'fonts', PATH + '/fonts');
     fs.copySync(commonDir + 'img', PATH + '/img');
-    fs.mkdirSync(PATH + 'common');
-
-    if (!fs.existsSync(build)) {
-        fs.mkdirSync(build);
-    }
 
     var views = fs.readdirSync('views');
 
@@ -83,6 +81,22 @@ gulp.task('build', function () {
 
             var staticsCss = util.buildStatics(conf.style.static, util.TYPE.STYLE);
             var staticsJs = util.buildStatics(conf.script.static, util.TYPE.SCRIPT);
+            var platformIncludesCss = '', platformIncludesJs = '';
+            if (OS && conf.platform) {
+                for (var k = 0; k < conf.platform.length; k++) {
+                    if (OS === conf.platform[k].os) {
+                        var file, type;
+                        for (var j = 0; j < conf.platform[k].files.length; j++) {
+                            file = conf.platform[k].files[j];
+                            if (file.indexOf('.css') > 0) {
+                                platformIncludesCss += util.buildStatic(file, util.TYPE.STYLE);
+                            } else if (file.indexOf('.js') > 0) {
+                                platformIncludesJs += util.buildStatic(file, util.TYPE.SCRIPT);
+                            }
+                        }
+                    }
+                }
+            }
 
             browserify({debug: false})
                 .transform(require('partialify'))
@@ -94,9 +108,12 @@ gulp.task('build', function () {
                         .replace('<!--include:title-->', conf.title)
                         .replace('<!--include:description-->', conf.description)
                         .replace('<!--include:static-css-->', staticsCss)
-                        .replace('<link rel="stylesheet" href="<!--include:main-css-->">', '<style>' + cssResult.css.toString() + '</style>')
+                        .replace('<link rel="stylesheet" href="<!--include:main-css-->">', '<style>'
+                            + cssResult.css.toString()
+                            + '</style>'
+                            + platformIncludesCss)
                         .replace('<!--include:template-->', fs.readFileSync(currentView + '/main.html', {encoding: 'utf8'}))
-                        .replace('<!--include:static-js-->', staticsJs)
+                        .replace('<!--include:static-js-->', staticsJs + platformIncludesJs)
                         .replace('<script src="<!--include:main-js-->"></script>', '')
                         .replace('</body>', '')
                         .replace('</html>', '');
@@ -109,7 +126,7 @@ gulp.task('build', function () {
                     }
                     page += '\n</body>\n</html>';
 
-                    fs.writeFileSync(PATH + currentView.replace('views/', '') + '.html',
+                    fs.writeFileSync(PATH + '/' + currentView.replace('views/', '') + '.html',
                         ((conf.build && conf.build.minifyHtml) ? minifyHtml(page, {
                             collapseWhitespace: true,
                             removeComments: true,

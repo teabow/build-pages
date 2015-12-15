@@ -16,11 +16,15 @@ module.exports = {
         var result = '';
         if (!files) return result;
         for (var i = 0; i < files.length; i++) {
-            result += this._startTag(type)
-                + fs.readFileSync(files[i], {encoding: 'utf8'})
-                + this._endTag(type);
+            result += this.buildStatic(files[i], type);
         }
         return result;
+    },
+
+    buildStatic: function (file, type) {
+        return this._startTag(type)
+            + fs.readFileSync(file, {encoding: 'utf8'})
+            + this._endTag(type);
     },
 
     _startTag: function (type) {
